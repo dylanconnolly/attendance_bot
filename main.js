@@ -62,7 +62,7 @@ client.on('message', msg => {
             let successMessage = "Successfully added dates to spreadsheet:"
 
             dates.forEach(date => {
-                successMessage += date
+                successMessage += ` ${date}`
             });
 
             msg.reply(successMessage)
