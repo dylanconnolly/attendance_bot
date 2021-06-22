@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 // require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+  }
 const gService = require('./gSheet.js')
 
 client.on('ready', () => {
