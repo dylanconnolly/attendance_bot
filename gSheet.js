@@ -3,7 +3,7 @@ const { builtinModules } = require('module');
 require('dotenv').config();
 
 const auth = new google.auth.GoogleAuth({
-    keyFile: './attendancebot-317613-09e483312aed.json',
+    keyFile: './google_credentials.json',
     scopes: [
         'https://www.googleapis.com/auth/spreadsheets'
     ],
