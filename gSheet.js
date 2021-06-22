@@ -18,7 +18,7 @@ async function appendRows(data) {
     const request = {
         spreadsheetId: process.env.SPREADSHEET_ID,
         range: 'Sheet1!A:B',
-        valueInputOption: 'USER_ENTERED',
+        valueInputOption: 'RAW',
         insertDataOption: 'INSERT_ROWS',
         resource: {
             "majorDimension": "ROWS",
