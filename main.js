@@ -36,6 +36,11 @@ client.on('message', msg => {
         let dates = msg.content.match(datesRegEx)
         let dateRange = msg.content.match(dateRangeRegEx)
 
+    if(substring.includes("help")){
+        msg.channel.send(
+            "Valid date formats are \nMM/DD\nMM-DD\nM/D\nM-D\nM/D-M/D")
+    }
+
     try{
         if(dateRange){
             console.log('date range found')
@@ -47,7 +52,7 @@ client.on('message', msg => {
         let rowData = []
         if(!dates){
             console.log("No dates input in message:", msg.content)
-            msg.reply("similar to you I couldn't find any dates. Please supply at least one date (MM/DD or MM-DD)")
+            msg.reply("just like you I couldn't find any dates. Please try again.")
             return
         }
 
@@ -60,7 +65,7 @@ client.on('message', msg => {
 
             gService.appendRows(rowData)
 
-            let successMessage = "Successfully added dates to spreadsheet:"
+            let successMessage = "Successfully added the following dates to spreadsheet:"
 
             dates.forEach(date => {
                 successMessage += ` ${date}`
