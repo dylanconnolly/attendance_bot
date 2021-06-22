@@ -74,6 +74,4 @@ client.on('message', msg => {
     }
 });
 
-console.log(process.env)
-
- client.login(process.env.BOT_KEY)
+client.login(process.env.BOT_KEY)

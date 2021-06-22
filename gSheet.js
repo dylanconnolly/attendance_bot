@@ -11,13 +11,7 @@ const auth = new google.auth.GoogleAuth({
 
 // let client = new google.auth.JWT({
 
-// })
-try{
-    const sheets = google.sheets({version: 'v4', auth: auth});
-}catch(error){
-    return error
-}
-
+const sheets = google.sheets({version: 'v4', auth: auth});
 
 async function appendRows(data) {
     console.log('append data:', data)
