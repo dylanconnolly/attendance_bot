@@ -1,4 +1,5 @@
 const {google} = require('googleapis');
+const { builtinModules } = require('module');
 require('dotenv').config();
 
 const auth = new google.auth.GoogleAuth({
@@ -15,8 +16,8 @@ const auth = new google.auth.GoogleAuth({
 const sheets = google.sheets({version: 'v4', auth: auth});
 
 
-async function appendRows() {
-    
+async function appendRows(data) {
+    console.log('append data:', data)
     const request = {
         spreadsheetId: process.env.SPREADSHEET_ID,
         range: 'Sheet1!A:B',
@@ -24,7 +25,7 @@ async function appendRows() {
         insertDataOption: 'INSERT_ROWS',
         resource: {
             "majorDimension": "ROWS",
-            "values": [["hobo","6/26"], ["dark","7/24"]]
+            "values": data
         },
         // auth: auth
     };
@@ -35,6 +36,8 @@ async function appendRows() {
     } catch (err) {
         console.error(err);
     }
-}
+};
 
-appendRows()
+// appendRows()
+
+exports.appendRows = appendRows;
