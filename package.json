@@ -5,12 +5,12 @@
   "main": "main.js",
   "dependencies": {
     "discord.js": "^12.5.3",
-    "node": "^13.10.1",
-    "googleapis": ""
+    "googleapis": "^78.0.0",
+    "node": "^13.10.1"
   },
   "devDependencies": {
-      "dotenv": ""
-    },
+    "dotenv": ""
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node main.js"
