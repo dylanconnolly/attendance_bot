@@ -38,8 +38,8 @@ if (msg.content.startsWith('!attendance')){
         })
     }
 
-    console.log(dates)
     console.log(author)
+    console.log(dates)
 
     msg.reply('got the note')
     }

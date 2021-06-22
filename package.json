@@ -6,7 +6,8 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "node": "^13.10.1",
-    "dotenv": ""
+    "dotenv": "",
+    "googleapis": ""
   },
   "devDependencies": {},
   "scripts": {
