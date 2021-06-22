@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { listenerCount } = require('events');
 const client = new Discord.Client();
 // require('dotenv').config();
 if (process.env.NODE_ENV !== "production") {
@@ -75,3 +76,6 @@ client.on('message', msg => {
 });
 
 client.login(process.env.BOT_KEY)
+
+listen(process.env.PORT)
+console.log("listening on port", process.env.PORT)
