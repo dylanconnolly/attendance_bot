@@ -38,7 +38,8 @@ client.on('message', msg => {
 
     if(substring.includes("help")){
         msg.channel.send(
-            "Valid date formats are \nMM/DD\nMM-DD\nM/D\nM-D\nM/D-M/D")
+            "Valid date formats are \n-MM/DD\n-MM-DD\n-M/D\n-M-D\n-M/D-M/D")
+            return
     }
 
     try{
