@@ -17,7 +17,7 @@ async function appendRows(data) {
     console.log('append data:', data)
     const request = {
         spreadsheetId: process.env.SPREADSHEET_ID,
-        range: 'Sheet1!A:B',
+        range: 'Sheet1!A:C',
         valueInputOption: 'RAW',
         insertDataOption: 'INSERT_ROWS',
         resource: {
