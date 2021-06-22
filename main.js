@@ -21,7 +21,7 @@ client.on('message', msg => {
         const reasonRegEx = /\b[^\d\/-]+\b/g
         
         if(substring.includes("help")){
-            msg.author.send("**Ok idiot, here's some help**\n\nYou can provide dates that you will be absent using the `!attendance` command\n\nYou can either provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can also provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation to Burma`)\n\nValid date formats are:\n-MM/DD\n-MM-DD\n-M/D\n-M-D\n-Date ranges **must** be M/D-M/D or MM/DD-MM/DD")
+            msg.channel.send("**Ok idiot, here's some help.**\n\nYou can provide dates that you will be absent using the `!attendance` command\n\nYou can either provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can also provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation to Burma`)\n\nValid date formats are:\n-MM/DD\n-MM-DD\n-M/D\n-M-D\n-Date ranges **must** be M/D-M/D or MM/DD-MM/DD")
             return
         }
 
