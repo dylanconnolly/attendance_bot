@@ -89,47 +89,14 @@ client.on('message', async msg => {
         
         let response = absences.getMissingOnDate(msg.content, spreadSheetData)
         console.log("response in checkattendance tree ---", response)
-        // let response = gService.getSheetData()
-
-        // let absences = response.filter(sheetRow => {
-        //     sheetRow[1] == dateQuery
-        // })
-
-        // console.log(absences)
-
-        // msg.reply(absences)
+        
         await msg.channel.send('The following people are absent:')
         await msg.channel.send(response);
         console.log('ive finished sending channel message')
-        // return
     }else{
         console.log("didn't get a command...")
         return "done"
     }
-
-
-    // if(msg.content.toLowerCase().startsWith('!checkattendance')){
-    //     console.log('im in the checkattendance area....')
-    //     let spreadSheetData = await gService.getSheetData()
-    //     console.log('just finished getting the data from spreadshet...')
-    //     console.log('the data is: ------------', spreadSheetData )
-        
-    //     let response = dummyService.getMissingOnDate(msg.content, spreadSheetData)
-    //     console.log("response in checkattendance tree ---", response)
-    //     // let response = gService.getSheetData()
-
-    //     // let absences = response.filter(sheetRow => {
-    //     //     sheetRow[1] == dateQuery
-    //     // })
-
-    //     // console.log(absences)
-
-    //     // msg.reply(absences)
-    //     msg.channel.send('The following people are absent:')
-    //     msg.channel.send(response);
-    //     console.log('ive finished sending channel message')
-    //     return
-    // }
 });
 
 client.login(process.env.BOT_KEY)
