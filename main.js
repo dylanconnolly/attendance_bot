@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
   }
 const gService = require('./gSheet.js')
-const dummyService = require('./dummy.js');
+const absences = require('./absences.js');
 const { exportDefaultSpecifier } = require('@babel/types');
 
 client.on('ready', () => {
@@ -87,7 +87,7 @@ client.on('message', async msg => {
         console.log('just finished getting the data from spreadshet...')
         console.log('the data is: ------------', spreadSheetData )
         
-        let response = dummyService.getMissingOnDate(msg.content, spreadSheetData)
+        let response = absences.getMissingOnDate(msg.content, spreadSheetData)
         console.log("response in checkattendance tree ---", response)
         // let response = gService.getSheetData()
 
