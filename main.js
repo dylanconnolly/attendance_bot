@@ -90,13 +90,18 @@ client.on('message', async msg => {
         let response = absences.getMissingOnDate(msg.content, spreadSheetData)
         console.log("response in checkattendance tree ---", response)
         
-        await msg.channel.send('The following people are absent:')
-        await msg.channel.send(response);
-        console.log('ive finished sending channel message')
+        if(response != ''){
+            await msg.channel.send("Absences found:")
+            await msg.channel.send(response);
+            console.log('ive finished sending channel message')
+        }else{
+            await msg.channel.send("Did not find any absences")
+        };
+        
     }else{
         console.log("didn't get a command...")
-        return "done"
-    }
+        return
+    };
 });
 
 client.login(process.env.BOT_KEY)

@@ -8,7 +8,7 @@ function getMissingOnDate(dateSearch, arrayOfDates) {
     let dateQueryString = substring.match(datesRegEx)
 
     if(!dateQueryString){
-        return("Must provide a date to check attendance. (ex: !checkattendance 12/25")
+        return("Must provide a date to check attendance. (ex: !checkattendance 12/25)")
     };
 
 
@@ -42,10 +42,5 @@ function getMissingOnDate(dateSearch, arrayOfDates) {
         return("An error occurred. Contact Tikk to get it sorted out.")
     }
 }
-
-// function dateRangeParse(string) {
-//     const dateRangeRegEx = /([0-9]+\/[0-9]+-[0-9]+\/[0-9]+)/g
-//     return string.match(dateRangeRegEx)
-// }
 
 exports.getMissingOnDate = getMissingOnDate
