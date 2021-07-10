@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== "production") {
   }
 const gService = require('./gSheet.js')
 const absences = require('./absences.js');
-const { exportDefaultSpecifier } = require('@babel/types');
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
