@@ -30,11 +30,24 @@ async function appendRows(data) {
     try {
         const response = (await sheets.spreadsheets.values.append(request)).data;
         console.log(JSON.stringify(response, null, 2));
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
     }
 };
 
-// appendRows()
+async function getSheetData() {
+    const request = {
+        spreadsheetId: process.env.SPREADSHEET_ID,
+        range: 'Attendance!A:C'
+    }
+    try{
+        const response = (await sheets.spreadsheets.values.get(request)).data.values
+        // console.log(response)
+        return response
+    }catch(error){
+        console.error(error)
+    }
+}
 
 exports.appendRows = appendRows;
+exports.getSheetData = getSheetData;
