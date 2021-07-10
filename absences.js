@@ -30,7 +30,10 @@ function getMissingOnDate(dateSearch, arrayOfDates) {
                 }
             }
             else{
-                if(dateQueryString == rowArray[1]){
+                let queryDate = new Date(dateQueryString)
+                let rowDate = new Date(rowArray[1])
+                
+                if(queryDate.getTime() === rowDate.getTime()){
                     matches.push(rowArray[0])
                 }
             }
