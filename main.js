@@ -6,24 +6,27 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
   }
 const gService = require('./gSheet.js')
+const dummyService = require('./dummy.js');
+const { exportDefaultSpecifier } = require('@babel/types');
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
  });
 
-client.on('message', msg => { 
-    if (msg.content.startsWith('!attendance')){
+client.on('message', async msg => { 
+    console.log('ive picked up the message trigger')
+    if (msg.content.toLowerCase().startsWith('!attendance')){
+        console.log('im in the !attendance area...')
         let author = msg.author.username
         let substring = msg.content.substring(12)
         let missingInfoResponse = "just like you I couldn't find any dates. Please try again or use `!attendance help` for more details."
 
-        const datesRegEx = /([0-9]+[\/-][0-9]+)/g
+        const datesRegEx = /([0-9]+[\/][0-9]+)/g
         const dateRangeRegEx = /([0-9]+\/[0-9]+-[0-9]+\/[0-9]+)/g
         const reasonRegEx = /\b[^,\d\/-]+\b/g
         
         if(substring.includes("help")){
-            msg.channel.send("**Ok idiot, here's some help.**\n\nYou can provide dates that you will be absent using the `!attendance` command\n\nYou can either provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can also provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation to Burma`)\n\nValid date formats are:\n-MM/DD\n-MM-DD\n-M/D\n-M-D\n-Date ranges **must** be M/D-M/D or MM/DD-MM/DD")
-            return
+           await msg.channel.send("**Ok idiot, here's some help.**\n\nYou can provide dates that you will be absent using the `!attendance` command (ex: !attendance 12/25)\n\nYou can also provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation`)\n\nValid date formats are:\n-MM/DD\n-M/D\n-Date ranges as M/D-M/D or MM/DD-MM/DD")
         }
 
         let dates = []
@@ -71,12 +74,63 @@ client.on('message', msg => {
             dates.forEach(date => {
                 successMessage += ` ${date}`
             });
-            msg.reply(successMessage)
+
+            await msg.reply(successMessage)
+            
         }catch(error){
             console.log(error)
-            msg.reply("An unknown error occured, please contact Tikk to fix it.")
+            await msg.reply("An error occured, contact Tikk to fix it.")
         }
+    }else if(msg.content.toLowerCase().startsWith('!checkattendance')){
+        console.log('im in the checkattendance area....')
+        let spreadSheetData = await gService.getSheetData()
+        console.log('just finished getting the data from spreadshet...')
+        console.log('the data is: ------------', spreadSheetData )
+        
+        let response = dummyService.getMissingOnDate(msg.content, spreadSheetData)
+        console.log("response in checkattendance tree ---", response)
+        // let response = gService.getSheetData()
+
+        // let absences = response.filter(sheetRow => {
+        //     sheetRow[1] == dateQuery
+        // })
+
+        // console.log(absences)
+
+        // msg.reply(absences)
+        await msg.channel.send('The following people are absent:')
+        await msg.channel.send(response);
+        console.log('ive finished sending channel message')
+        // return
+    }else{
+        console.log("didn't get a command...")
+        return "done"
     }
+
+
+    // if(msg.content.toLowerCase().startsWith('!checkattendance')){
+    //     console.log('im in the checkattendance area....')
+    //     let spreadSheetData = await gService.getSheetData()
+    //     console.log('just finished getting the data from spreadshet...')
+    //     console.log('the data is: ------------', spreadSheetData )
+        
+    //     let response = dummyService.getMissingOnDate(msg.content, spreadSheetData)
+    //     console.log("response in checkattendance tree ---", response)
+    //     // let response = gService.getSheetData()
+
+    //     // let absences = response.filter(sheetRow => {
+    //     //     sheetRow[1] == dateQuery
+    //     // })
+
+    //     // console.log(absences)
+
+    //     // msg.reply(absences)
+    //     msg.channel.send('The following people are absent:')
+    //     msg.channel.send(response);
+    //     console.log('ive finished sending channel message')
+    //     return
+    // }
 });
 
 client.login(process.env.BOT_KEY)
+
