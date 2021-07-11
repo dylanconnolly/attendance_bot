@@ -20,9 +20,8 @@ client.on('message', async msg => {
         let substring = msg.content.substring(12)
         let missingInfoResponse = "just like you I couldn't find any dates. Please try again or use `!attendance help` for more details."
 
-        const datesRegEx = /([0-9]+[\/][0-9]+)/g
+        const datesRegEx = /[0-9]{1,2}[\/][0-9]{1,2}/g
         const dateRangeRegEx = /([0-9]+\/[0-9]+-[0-9]+\/[0-9]+)/g
-        const reasonRegEx = /\b[^,\d\/-]+\b/g
         
         if(substring.includes("help")){
            await msg.channel.send("**Ok idiot, here's some help.**\n\nYou can provide dates that you will be absent using the `!attendance` command (ex: !attendance 12/25)\n\nYou can also provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation`)\n\nValid date formats are:\n-MM/DD\n-M/D\n-Date ranges as M/D-M/D or MM/DD-MM/DD")
@@ -32,7 +31,7 @@ client.on('message', async msg => {
         
         let dateRange = msg.content.match(dateRangeRegEx)
 
-        let reasonParse = substring.match(reasonRegEx)
+        let reasonString = ''
         
         // let dates = substring.match(datesRegEx)
         
@@ -41,12 +40,15 @@ client.on('message', async msg => {
                 console.log('date range found')
                 dateRange.forEach(range => {
                     dates.push(range)
+                    reasonString = substring.replace(range, '')
                 })
             }else{
                 dates = substring.match(datesRegEx)
+                reasonString = substring.replace(datesRegEx, '')
             }
 
             console.log(dates)
+            console.log("reason after removing dates", reasonString)
 
             let rowData = []
             if(!dates){
@@ -55,12 +57,7 @@ client.on('message', async msg => {
                 return
             }
 
-            if(reasonParse){
-                reasonString = substring.match(reasonRegEx).slice(-1)[0]
-            }
-            else{
-                reasonString = ''
-            }
+            reasonString = reasonString.trim()
 
             dates.forEach(date => {
                 rowData.push([author, date, reasonString])
