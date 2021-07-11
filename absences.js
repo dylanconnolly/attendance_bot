@@ -1,4 +1,4 @@
-const helpers = require('./helpers')
+const HelperModule = require('./helpers')
 
 function getMissingOnDate(dateSearch, arrayOfDates) {
     let substring = dateSearch.substring(17)
@@ -17,7 +17,7 @@ function getMissingOnDate(dateSearch, arrayOfDates) {
     let matches = []
     try{
         arrayOfDates.forEach(rowArray => {
-            let dateRange = helpers.dateRangeParse(rowArray[1])
+            let dateRange = HelperModule.dateRangeParse(rowArray[1])
             // console.log('dateRange return for', rowArray, ':', dateRange)
             if(dateRange){
                 let rangeSplit = dateRange[0].split('-')
