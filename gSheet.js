@@ -29,9 +29,19 @@ async function appendRows(data) {
 
     try {
         const response = (await sheets.spreadsheets.values.append(request)).data;
+        
         console.log(JSON.stringify(response, null, 2));
-    } catch (error) {
-        console.error(error);
+        return {
+            success: true,
+            message: JSON.stringify(response, null, 2)
+        }
+    } catch(err) {
+        console.log(err);
+        return {
+            success: false,
+            code: err.code,
+            message: err.message
+        }
     }
 };
 
