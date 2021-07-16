@@ -1,12 +1,13 @@
 const Discord = require('discord.js');
 const { listenerCount } = require('events');
 const client = new Discord.Client();
-// require('dotenv').config();
-if (process.env.NODE_ENV !== "production") {
+
+if(process.env.NODE_ENV !== "production"){
     require("dotenv").config();
-  }
+}
 const gService = require('./gSheet.js')
 const absences = require('./absences.js');
+const functions = require('./functions/addAttendanceRecord.js')
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
@@ -14,25 +15,21 @@ client.on('ready', () => {
 
 client.on('message', async msg => { 
     console.log('ive picked up the message trigger')
-    if (msg.content.toLowerCase().startsWith('!attendance')){
+    if(msg.content.toLowerCase().startsWith('!attendance')){
         console.log('im in the !attendance area...')
         let author = msg.author.username
         let substring = msg.content.substring(12)
 
+        // let addResponse = await functions.addAttendanceRecord(substring, author)
+
         const datesRegEx = /[0-9]{1,2}[\/][0-9]{1,2}/g
         const dateRangeRegEx = /([0-9]+\/[0-9]+-[0-9]+\/[0-9]+)/g
-        
-        // if(substring.includes("help")){
-        //    await msg.channel.send("**Ok idiot, here's some help.**\n\nYou can provide dates that you will be absent using the `!attendance` command (ex: !attendance 12/25)\n\nYou can also provide a list of individual dates (ex: `!attendance 6/12 7/18 8/1`) or a date range (ex: `!attendance 6/12-6/18`)\n\n**Optional** You can provide a reason for your absence by typing sentences after the date/dates provided (ex: `!attendance 6/22 Working late` or `!attendance 6/22-6/28 Vacation`)\n\nValid date formats are:\n-MM/DD\n-M/D\n-Date ranges as M/D-M/D or MM/DD-MM/DD")
-        // }
 
         let dates = []
         
         let dateRange = msg.content.match(dateRangeRegEx)
 
         let reasonString = ''
-        
-        // let dates = substring.match(datesRegEx)
         
         try{
             if(dateRange){
